@@ -1,6 +1,7 @@
 import java.time.LocalDate;
 import java.util.ArrayList;
 
+@SuppressWarnings("ClassCanBeRecord")
 public class WorkEntry {
     private final LocalDate workDate;
     private final double hoursWorked;

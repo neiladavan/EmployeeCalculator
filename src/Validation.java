@@ -1,6 +1,5 @@
 import java.time.LocalDate;
 import java.util.ArrayList;
-import java.util.Scanner;
 import java.util.regex.Pattern;
 
 public class Validation {
@@ -12,16 +11,6 @@ public class Validation {
             return false; // Name cannot be null or empty
         }
         return Pattern.matches(NAME_PATTERN, name);
-    }
-
-    // Validate pay rate (should be positive number)
-    public static boolean isValidPayRate(double rate){
-        return rate > 0;
-    }
-
-    // Validate hours worked (positive and <= 16)
-    public static boolean isValidHours(double hours){
-        return hours > 0 && hours <= 16;
     }
 
     // Validate work date (current year and unique date)

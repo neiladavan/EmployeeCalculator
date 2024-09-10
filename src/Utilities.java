@@ -8,7 +8,6 @@ public class Utilities {
     // list of Alberta Holidays
     static final ArrayList<LocalDate> HOLIDAYS = new ArrayList<>();
     private static final Scanner scanner = new Scanner(System.in);
-    private static ArrayList<WorkEntry> workEntries = new ArrayList<>();
 
     // Initialize HOLIDAYS
     static {
@@ -51,7 +50,7 @@ public class Utilities {
         return value;
     }
 
-    public static LocalDate getValidDate() {
+    public static LocalDate getValidDate(ArrayList<WorkEntry> workEntries) {
         while (true) {
             System.out.println("Enter Date (YYYY-MM-DD):");
             String dateInput = scanner.nextLine();

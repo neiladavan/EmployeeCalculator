@@ -28,7 +28,8 @@ public class Employee {
 
         WorkEntry newEntry = new WorkEntry(workDate, hoursWorked, dailyPay);  // Create WorkEntry
         workEntries.add(newEntry);  // Add to workEntries list
-        totalPay += dailyPay;  // Update total pay
+        //totalPay += dailyPay;  // Update total pay
+        setTotalPay(dailyPay);
     }
 
     public ArrayList<WorkEntry> getWorkEntries() {
@@ -44,11 +45,11 @@ public class Employee {
     }
 
     public void setTotalPay(double totalPay) {
-        this.totalPay = totalPay;
+        this.totalPay += totalPay;
     }
 
     public double calculateDailyPay(LocalDate workDate, double hoursWorked) {
-        double pay = 0.0;
+        double pay;
         double overtimeHours = 0.0;
 
         // Constants
@@ -75,32 +76,15 @@ public class Employee {
         return pay;
     }
 
-    // Method to validate work date
-    private boolean isValidDate(LocalDate workDate) {
-        int currentYear = LocalDate.now().getYear();
-
-        if (workDate.getYear() != currentYear) {
-            return false;
-        }
-
-        for (WorkEntry entry : workEntries) {
-            if (entry.getWorkDate().equals(workDate)) {
-                return false;
-            }
-        }
-
-        return true;
-    }
-
     // Override toString to include work entries and total pay
     @Override
     public String toString() {
         StringBuilder result = new StringBuilder();
-        result.append(String.format("Detailed pay summary for %s:\n", name));
-        result.append(String.format("Hourly Rate %.2f:\n", hourlyRate));
+        result.append(String.format("Detailed pay summary for %s:\n", getName()));
+        result.append(String.format("Hourly Rate %.2f:\n", getHourlyRate()));
         result.append(String.format("%-12s %-16s %-14s %-12s\n", "Date", "Weekend/Holiday", "Hours Worked", "Pay ($)"));
 
-        for (WorkEntry entry : workEntries) {
+        for (WorkEntry entry : getWorkEntries()) {
             String indicator = entry.isHolidayOrWeekend(Utilities.HOLIDAYS);
             result.append(String.format("%-12s %-16s %-14.2f %-12.2f\n",
                     entry.getWorkDate(),
@@ -110,7 +94,7 @@ public class Employee {
         }
 
         // Add total pay at the end
-        result.append(String.format("Total pay for %s: $%.2f", name, totalPay));
+        result.append(String.format("Total pay for %s: $%.2f", getName(), getTotalPay()));
         return result.toString();
     }
 }

@@ -24,7 +24,7 @@ public class Main {
             employees.add(employee);
 
             // Ask if they want to add another employee
-            if (promptContinue("Do you want to add another employee? (Y/N)")) {
+            if (!shouldContinue("Do you want to add another employee? (Y/N)")) {
                 break;
             }
         }
@@ -34,42 +34,59 @@ public class Main {
         scanner.close();
     }
 
+    // Method to create a new Employee object
     private static Employee createEmployee() {
         System.out.println("Enter employee name:");
         String employeeName = scanner.nextLine();
 
-        while (!Validation.isValidName(employeeName)){
+        // Validate employee name
+        while (!Validation.isValidName(employeeName)) {
             System.out.println("Invalid employee name! Only letters, spaces, hyphens, and apostrophes are allowed.");
             employeeName = scanner.nextLine();
         }
 
-        double payRate = Utilities.getValidDoubleInput("Enter pay rate per hour (numeric values only):", MIN_PAY_RATE_PER_HOUR, MAX_PAY_RATE_PER_HOUR);
+        // Validate pay rate per hour
+        double payRate = Utilities.getValidDoubleInput(
+                "Enter pay rate per hour (numeric values only):",
+                MIN_PAY_RATE_PER_HOUR,
+                MAX_PAY_RATE_PER_HOUR
+        );
 
         return new Employee(employeeName, payRate);
     }
 
+    // Method to collect work entries for an employee
     private static void collectWorkEntries(Employee employee) {
         while (true) {
-            LocalDate workDate = Utilities.getValidDate();
+            // Get a valid work date
+            LocalDate workDate = Utilities.getValidDate(employee.getWorkEntries());
 
-            double hoursWorked = Utilities.getValidDoubleInput("Enter hours worked (numeric values only):", MIN_HOURS_PER_DAY, MAX_HOURS_PER_DAY);
+            // Get a valid number of hours worked
+            double hoursWorked = Utilities.getValidDoubleInput(
+                    "Enter hours worked (numeric values only):",
+                    MIN_HOURS_PER_DAY,
+                    MAX_HOURS_PER_DAY
+            );
 
             // Add the work entry to the employee
             employee.addWorkEntry(workDate, hoursWorked);
 
             // Ask if they want to add another work entry
-            if (promptContinue("Do you want to add another entry? (Y/N)")) {
+            if (!shouldContinue("Do you want to add another entry? (Y/N)")) {
                 break;
             }
         }
     }
 
-    private static boolean promptContinue(String message) {
+    // Method to prompt user with a message and return boolean based on input
+    @SuppressWarnings("BooleanMethodIsAlwaysInverted")
+    private static boolean shouldContinue(String message) {
         System.out.println(message);
         String answer = scanner.nextLine();
-        return !answer.equalsIgnoreCase("y");
+        return answer.equalsIgnoreCase("y");
     }
 
+    // Method to display all employees
     private static void displayAllEmployees(ArrayList<Employee> employees) {
         for (Employee emp : employees) {
             System.out.println(emp);
