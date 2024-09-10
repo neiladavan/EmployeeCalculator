@@ -75,6 +75,23 @@ public class Employee {
         return pay;
     }
 
+    // Method to validate work date
+    private boolean isValidDate(LocalDate workDate) {
+        int currentYear = LocalDate.now().getYear();
+
+        if (workDate.getYear() != currentYear) {
+            return false;
+        }
+
+        for (WorkEntry entry : workEntries) {
+            if (entry.getWorkDate().equals(workDate)) {
+                return false;
+            }
+        }
+
+        return true;
+    }
+
     // Override toString to include work entries and total pay
     @Override
     public String toString() {
