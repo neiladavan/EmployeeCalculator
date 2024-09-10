@@ -17,21 +17,13 @@ public class Main {
             // Get Employee Details
             System.out.println("Enter employee name:");
             String employeeName = scanner.nextLine();
+            while (!Validation.isValidName(employeeName)){
+                System.out.println("Invalid employee name! Only letters, spaces, hyphens, and apostrophes are allowed.");
+                employeeName = scanner.nextLine();
+            }
 
-            // Assume Validation.isValidName is working correctly
             // Get pay rate per hour
             double payRate = Utilities.getValidDoubleInput(MIN_PAY_RATE_PER_HOUR, MAX_PAY_RATE_PER_HOUR);
-
-            /*boolean validPayRate = false;
-            while (!validPayRate) {
-                System.out.println("Enter pay rate per hour (numeric values only):");
-                try {
-                    payRate = Double.parseDouble(scanner.nextLine());
-                    validPayRate = true; // Assume basic validation here
-                } catch (NumberFormatException e) {
-                    System.out.println("Invalid input. Please enter a valid numeric value for pay rate.");
-                }
-            }*/
 
             // Create a new Employee object
             Employee employee = new Employee(employeeName, payRate);
@@ -56,20 +48,6 @@ public class Main {
 
                 // Get hours worked
                 double hoursWorked = Utilities.getValidDoubleInput(MIN_HOURS_PER_DAY, MAX_HOURS_PER_DAY);
-                /*boolean validHours = false;
-                while (!validHours) {
-                    System.out.println("Enter hours worked (numeric values only):");
-                    try {
-                        hoursWorked = Double.parseDouble(scanner.nextLine());
-                        if (hoursWorked > 0 && hoursWorked <= MAX_HOURS_PER_DAY) {
-                            validHours = true;
-                        } else {
-                            System.out.println("Invalid hours. Enter hours between 1 and " + MAX_HOURS_PER_DAY);
-                        }
-                    } catch (NumberFormatException e) {
-                        System.out.println("Invalid input. Please enter a valid numeric value for hours.");
-                    }
-                }*/
 
                 // Add the work entry to the employee
                 employee.addWorkEntry(workDate, hoursWorked);
