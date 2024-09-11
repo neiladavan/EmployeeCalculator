@@ -7,12 +7,30 @@ import java.time.format.DateTimeParseException;
 import java.util.ArrayList;
 import java.util.Scanner;
 
+/**
+ * Utility class that provides general-purpose methods such as formatting currency, retrieving valid user inputs,
+ * and managing holiday dates. It also defines a list of Alberta holidays for date validation purposes.
+ *
+ * This class is designed to facilitate user interactions and data validation in the application.
+ *
+ * @author Neil Adavan
+ * @version 1.0
+ * @since 2024-09
+ */
 public class Utilities {
-    // list of Alberta Holidays
+    /**
+     * List of predefined Alberta holidays.
+     */
     public static final ArrayList<LocalDate> HOLIDAYS = new ArrayList<>();
     private static final Scanner scanner = new Scanner(System.in);
     private static final NumberFormat nf = NumberFormat.getCurrencyInstance();
 
+    /**
+     * Formats a given double value as a currency string using the default locale.
+     *
+     * @param value the double value to format
+     * @return the formatted currency string
+     */
     public static String formatCurrency(double value) {
         return nf.format(value);
     }
@@ -37,6 +55,15 @@ public class Utilities {
         HOLIDAYS.add(LocalDate.of(currentYear, Month.DECEMBER, 26)); // Boxing Day
     }
 
+    /**
+     * Prompts the user to enter a valid double value within a specified range.
+     * It ensures that the value is between the specified minimum and maximum limits.
+     *
+     * @param promptMessage the message to display when prompting the user
+     * @param minValue the minimum allowable value
+     * @param maxValue the maximum allowable value
+     * @return the valid double value entered by the user
+     */
     public static double getValidDoubleInput(String promptMessage, double minValue, double maxValue) {
         Scanner scanner = new Scanner(System.in);
         double value = 0.0;
@@ -58,6 +85,13 @@ public class Utilities {
         return value;
     }
 
+    /**
+     * Prompts the user to enter a valid date in the YYYY-MM-DD format. The method ensures that the date is not
+     * in the future, is within the current year, and is unique among the provided work entries.
+     *
+     * @param workEntries a list of existing {@link WorkEntry} objects to check for duplicate dates
+     * @return the valid {@link LocalDate} entered by the user
+     */
     public static LocalDate getValidDate(ArrayList<WorkEntry> workEntries) {
         while (true) {
             System.out.println("Enter Date (YYYY-MM-DD):");
@@ -78,7 +112,13 @@ public class Utilities {
         }
     }
 
-    // Method to prompt user with a message and return boolean based on input
+    /**
+     * Prompts the user with a message and expects a yes/no response. If the user enters 'y', it returns {@code true};
+     * otherwise, it returns {@code false}.
+     *
+     * @param message the message to display to the user
+     * @return {@code true} if the user responds with 'y' or 'Y'; {@code false} otherwise
+     */
     @SuppressWarnings("BooleanMethodIsAlwaysInverted")
     public static boolean shouldContinue(String message) {
         System.out.println(message);

@@ -6,6 +6,15 @@ import org.example.models.Employee;
 import java.time.LocalDate;
 import java.util.Scanner;
 
+/**
+ * Main class to run the employee work management program.
+ * This class handles the creation of employees, collecting their work entries,
+ * and displaying all employee data.
+ *
+ * @author Neil Adavan
+ * @version 1.0
+ * @since 2024-09
+ */
 public class Main {
     private static final double MAX_HOURS_PER_DAY = 16.0;
     private static final double MIN_HOURS_PER_DAY = 1.0;
@@ -14,6 +23,13 @@ public class Main {
 
     private static final Scanner scanner = new Scanner(System.in);
 
+    /**
+     * The main method serves as the entry point for the program.
+     * It handles the main program loop where employees are created, work entries are added,
+     * and all employees are displayed after data entry is complete.
+     *
+     * @param args command-line arguments (not used in this application)
+     */
     public static void main(String[] args) {
         while (true) {
             // Create a new org.example.models.Employee object
@@ -37,6 +53,12 @@ public class Main {
         scanner.close();
     }
 
+    /**
+     * Prompts the user to input an employee's name and pay rate per hour.
+     * Validates the input values and creates a new {@link org.example.models.Employee} object.
+     *
+     * @return the newly created Employee object
+     */
     // Method to create a new org.example.models.Employee object
     private static Employee createEmployee() {
         System.out.println("Enter employee name:");
@@ -58,6 +80,12 @@ public class Main {
         return new Employee(employeeName, payRate);
     }
 
+    /**
+     * Collects work entries (date and hours worked) for a given employee.
+     * Repeatedly prompts the user for valid work dates and hours worked, then adds the work entry to the employee.
+     *
+     * @param employee the Employee object to which work entries will be added
+     */
     // Method to collect work entries for an employee
     private static void collectWorkEntries(Employee employee) {
         while (true) {
