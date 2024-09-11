@@ -1,3 +1,6 @@
+package org.example;
+
+import java.text.NumberFormat;
 import java.time.LocalDate;
 import java.time.Month;
 import java.time.format.DateTimeParseException;
@@ -6,8 +9,13 @@ import java.util.Scanner;
 
 public class Utilities {
     // list of Alberta Holidays
-    static final ArrayList<LocalDate> HOLIDAYS = new ArrayList<>();
+    public static final ArrayList<LocalDate> HOLIDAYS = new ArrayList<>();
     private static final Scanner scanner = new Scanner(System.in);
+    private static final NumberFormat nf = NumberFormat.getCurrencyInstance();
+
+    public static String formatCurrency(double value) {
+        return nf.format(value);
+    }
 
     // Initialize HOLIDAYS
     static {
@@ -68,5 +76,13 @@ public class Utilities {
                 System.out.println("Invalid date format! Please enter the date in YYYY-MM-DD format.");
             }
         }
+    }
+
+    // Method to prompt user with a message and return boolean based on input
+    @SuppressWarnings("BooleanMethodIsAlwaysInverted")
+    public static boolean shouldContinue(String message) {
+        System.out.println(message);
+        String answer = scanner.nextLine();
+        return answer.equalsIgnoreCase("y");
     }
 }

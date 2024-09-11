@@ -1,3 +1,9 @@
+package org.example.models;
+
+import org.example.Utilities;
+import org.example.Validation;
+import org.example.WorkEntry;
+
 import java.time.LocalDate;
 import java.util.ArrayList;
 
@@ -26,10 +32,10 @@ public class Employee {
     public void addWorkEntry(LocalDate workDate, double hoursWorked) {
         double dailyPay = calculateDailyPay(workDate, hoursWorked);  // Calculate daily pay
 
-        WorkEntry newEntry = new WorkEntry(workDate, hoursWorked, dailyPay);  // Create WorkEntry
+        WorkEntry newEntry = new WorkEntry(workDate, hoursWorked, dailyPay);  // Create org.example.WorkEntry
         workEntries.add(newEntry);  // Add to workEntries list
-        //totalPay += dailyPay;  // Update total pay
-        setTotalPay(dailyPay);
+        //totalPay += dailyPay;
+        setTotalPay(dailyPay); // Update total pay
     }
 
     public ArrayList<WorkEntry> getWorkEntries() {
@@ -80,12 +86,12 @@ public class Employee {
     @Override
     public String toString() {
         StringBuilder result = new StringBuilder();
-        result.append(String.format("Detailed pay summary for %s:\n", getName()));
-        result.append(String.format("Hourly Rate %.2f:\n", getHourlyRate()));
+        result.append(String.format("Detailed pay summary for %s:\n", name));
+        result.append(String.format("Hourly Rate %.2f:\n", hourlyRate));
         result.append(String.format("%-12s %-16s %-14s %-12s\n", "Date", "Weekend/Holiday", "Hours Worked", "Pay ($)"));
 
         for (WorkEntry entry : getWorkEntries()) {
-            String indicator = entry.isHolidayOrWeekend(Utilities.HOLIDAYS);
+            String indicator = entry.isHolidayOrWeekend();
             result.append(String.format("%-12s %-16s %-14.2f %-12.2f\n",
                     entry.getWorkDate(),
                     indicator,
@@ -94,7 +100,7 @@ public class Employee {
         }
 
         // Add total pay at the end
-        result.append(String.format("Total pay for %s: $%.2f", getName(), getTotalPay()));
+        result.append(String.format("Total pay for %s: $%s", name, Utilities.formatCurrency(totalPay)));
         return result.toString();
     }
 }

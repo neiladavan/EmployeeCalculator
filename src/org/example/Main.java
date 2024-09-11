@@ -1,5 +1,9 @@
+package org.example;
+
+import org.example.data.EmployeeDB;
+import org.example.models.Employee;
+
 import java.time.LocalDate;
-import java.util.ArrayList;
 import java.util.Scanner;
 
 public class Main {
@@ -11,30 +15,29 @@ public class Main {
     private static final Scanner scanner = new Scanner(System.in);
 
     public static void main(String[] args) {
-        ArrayList<Employee> employees = new ArrayList<>();
-
         while (true) {
-            // Create a new Employee object
+            // Create a new org.example.models.Employee object
             Employee employee = createEmployee();
 
             // Collect work entries for the employee
             collectWorkEntries(employee);
 
             // Add employee to the list
-            employees.add(employee);
+            //employees.add(employee);
+            EmployeeDB.addEmployee(employee);
 
             // Ask if they want to add another employee
-            if (!shouldContinue("Do you want to add another employee? (Y/N)")) {
+            if (!Utilities.shouldContinue("Do you want to add another employee? (Y/N)")) {
                 break;
             }
         }
 
         // Display all employee data
-        displayAllEmployees(employees);
+        EmployeeDB.displayAllEmployees();
         scanner.close();
     }
 
-    // Method to create a new Employee object
+    // Method to create a new org.example.models.Employee object
     private static Employee createEmployee() {
         System.out.println("Enter employee name:");
         String employeeName = scanner.nextLine();
@@ -72,24 +75,9 @@ public class Main {
             employee.addWorkEntry(workDate, hoursWorked);
 
             // Ask if they want to add another work entry
-            if (!shouldContinue("Do you want to add another entry? (Y/N)")) {
+            if (!Utilities.shouldContinue("Do you want to add another entry? (Y/N)")) {
                 break;
             }
-        }
-    }
-
-    // Method to prompt user with a message and return boolean based on input
-    @SuppressWarnings("BooleanMethodIsAlwaysInverted")
-    private static boolean shouldContinue(String message) {
-        System.out.println(message);
-        String answer = scanner.nextLine();
-        return answer.equalsIgnoreCase("y");
-    }
-
-    // Method to display all employees
-    private static void displayAllEmployees(ArrayList<Employee> employees) {
-        for (Employee emp : employees) {
-            System.out.println(emp);
         }
     }
 }

@@ -1,5 +1,6 @@
+package org.example;
+
 import java.time.LocalDate;
-import java.util.ArrayList;
 
 @SuppressWarnings("ClassCanBeRecord")
 public class WorkEntry {
@@ -25,9 +26,9 @@ public class WorkEntry {
         return dailyPay;
     }
 
-    public String isHolidayOrWeekend(ArrayList<LocalDate> holidays){
+    public String isHolidayOrWeekend(){
         // check if it is holiday
-        if (holidays.contains(workDate)){
+        if (Utilities.HOLIDAYS.contains(workDate)){
             return "Holiday";
         }
 
